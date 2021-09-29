@@ -4,8 +4,10 @@ function help() {
 ┠❥ *!add 9185xxxxxxxx ...*
 ┠❥ *!kick 9185xxxxxxxx ...*
 ┠❥ *!makeAdmin 9185xxxxxxxx ...*
+┠❥ *!unadmin 9185xxxxxxxx ...*
 ┠❥ *!invite*
 ┠❥ *!toggleNSFW*
+┠❥ *!bot [enable|disable]*
 ╰╼
 
 ◄ Others Commands ►

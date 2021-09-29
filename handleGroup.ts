@@ -44,5 +44,45 @@ export default async function handleGroup(
 		else return makeParsableObj({ text: "NSFW disabled in this group!" });
 	}
 
-	return;
+	switch (command) {
+		case "..invite":
+			const code = await sock.groupInviteCode(msg.key.remoteJid);
+			return makeParsableObj({
+				text: `https://chat.whatsapp.com/${code}`,
+			});
+
+		case "..add":
+			await sock.groupParticipantsUpdate(
+				msg.key.remoteJid,
+				args.map((part) => `${part}@s.whatsapp.net`)
+			);
+			return makeParsableObj(null);
+
+		case "..kick":
+			await sock.groupParticipantsUpdate(
+				msg.key.remoteJid,
+				args.map((part) => `${part}@s.whatsapp.net`),
+				"remove"
+			);
+			return makeParsableObj(null);
+
+		case "..makeadmin":
+			await sock.groupParticipantsUpdate(
+				msg.key.remoteJid,
+				args.map((part) => `${part}@s.whatsapp.net`),
+				"promote"
+			);
+			return makeParsableObj(null);
+
+		case "..unadmin":
+			await sock.groupParticipantsUpdate(
+				msg.key.remoteJid,
+				args.map((part) => `${part}@s.whatsapp.net`),
+				"demote" // replace this parameter with "remove", "demote" or "promote"
+			);
+			return makeParsableObj(null);
+
+		default:
+			return;
+	}
 }
