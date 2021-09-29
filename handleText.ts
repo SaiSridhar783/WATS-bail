@@ -35,12 +35,6 @@ export const makeParsableObj = (
 };
 
 export default async (sock: WASocket, msg: any) => {
-	if (
-		Object.keys(msg.message).includes("stickerMessage") ||
-		Object.keys(msg.message).includes("audioMessage")
-	)
-		return makeParsableObj(null);
-
 	fs.writeFileSync("mess.json", JSON.stringify(msg, undefined, 2));
 
 	if (
@@ -48,10 +42,14 @@ export default async (sock: WASocket, msg: any) => {
 		Object.keys(msg.message).includes("videoMessage") ||
 		Object.keys(msg.message).includes("extendedTextMessage")
 	) {
-		return handleMedia(sock, msg);
+		let res = await handleMedia(sock, msg);
+		if (res) return res;
+
+		return makeParsableObj(null);
 	}
 
 	let convo = msg.message.conversation;
+	if (!convo) return makeParsableObj(null);
 	if (!convo.startsWith("..")) return makeParsableObj(null);
 	if (convo.startsWith(".. ")) convo = ".." + convo.slice(2).trim();
 	convo = convo.toLowerCase();
@@ -69,7 +67,7 @@ export default async (sock: WASocket, msg: any) => {
 	const isGroupYes = groups[msg.key.remoteJid] || false;
 	const isNSFW = nsfw_[msg.key.remoteJid] || false;
 
-	if (!isGroupYes) {
+	if (isGroupMsg && !isGroupYes) {
 		return makeParsableObj(null);
 	}
 
@@ -81,6 +79,8 @@ export default async (sock: WASocket, msg: any) => {
 			return makeParsableObj({ text: help.anihelp });
 
 		case "..nsfwhelp":
+			if (isGroupMsg && !isNSFW)
+				return makeParsableObj({ text: "🔞 NSFW not enabled!" });
 			return makeParsableObj({ text: help.nsfwhelp });
 
 		case "..info":
