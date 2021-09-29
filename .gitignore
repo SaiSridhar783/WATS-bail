@@ -1,0 +1,7 @@
+node_modules
+**/node_modules
+*.lock
+auth*
+mess.json
+group.json
+*.log
