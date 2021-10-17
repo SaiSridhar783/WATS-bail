@@ -49,10 +49,9 @@ const establishConnection = async () => {
 			printQRInTerminal: true,
 		});
 		sock.ev.on("messages.upsert", async (m) => {
-			console.log(JSON.stringify(m, undefined, 2));
-
 			const msg = m.messages[0];
 			if (!msg.key.fromMe && m.type === "notify") {
+				console.log(JSON.stringify(m, undefined, 2));
 				let { replyObj, optionsObj } = await handleText(sock, msg);
 
 				if (!replyObj) return;

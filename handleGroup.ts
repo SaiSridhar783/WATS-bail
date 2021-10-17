@@ -2,9 +2,10 @@ import groups from "./utils/groups.json";
 import nsfw_ from "./utils/NSFW.json";
 import * as fs from "fs";
 import { makeParsableObj } from "./handleText";
+import { WASocket } from "./Baileys";
 
 export default async function handleGroup(
-	sock: any,
+	sock: WASocket,
 	msg: any,
 	command: string,
 	args: string[]
@@ -54,7 +55,8 @@ export default async function handleGroup(
 		case "..add":
 			await sock.groupParticipantsUpdate(
 				msg.key.remoteJid,
-				args.map((part) => `${part}@s.whatsapp.net`)
+				args.map((part) => `${part}@s.whatsapp.net`),
+				"add"
 			);
 			return makeParsableObj(null);
 
