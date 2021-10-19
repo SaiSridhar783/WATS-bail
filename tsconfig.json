@@ -13,6 +13,6 @@
     "declaration": true,
     "lib": ["es2020", "esnext.array"]
   },
-  "include": ["index.ts", "*.ts"],
-  "exclude": ["node_modules","Baileys"]
+  "include": ["**/*"],
+  "exclude": ["node_modules","Baileys","test.js"]
 }
