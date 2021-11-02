@@ -2,7 +2,7 @@ import groups from "./utils/groups.json";
 import nsfw_ from "./utils/NSFW.json";
 import * as fs from "fs";
 import { makeParsableObj } from "./handleText";
-import { WASocket } from "./Baileys";
+import { WASocket } from "./lib";
 
 export default async function handleGroup(
 	sock: WASocket,

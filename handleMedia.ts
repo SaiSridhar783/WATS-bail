@@ -1,7 +1,7 @@
-import { WASocket } from "./Baileys/lib";
+import { WASocket } from "./lib";
 import { makeParsableObj } from "./handleText";
 import { writeFile } from "fs/promises";
-import { downloadContentFromMessage } from "./Baileys";
+import { downloadContentFromMessage } from "./lib";
 import keys from "./config.json";
 import { removeBackgroundFromImageFile } from "remove.bg";
 import SauceNAO from "saucenao";
