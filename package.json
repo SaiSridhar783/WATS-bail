@@ -3,12 +3,17 @@
 	"version": "1.0.0",
 	"type": "commonjs",
 	"author": "bankai",
+	"engines": {
+		"node": ">=17.0.1",
+		"yarn": ">=1.22.15"
+	},
 	"license": "MIT",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node --inspect -r ts-node/register index.ts"
 	},
 	"dependencies": {
+		"@adiwajshing/baileys": "^3.5.2",
 		"@ffmpeg-installer/ffmpeg": "^1.1.0",
 		"@ffprobe-installer/ffprobe": "^1.2.0",
 		"@freezegold/anime.js": "^3.0.0",
