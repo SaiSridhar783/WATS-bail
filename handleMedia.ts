@@ -2,11 +2,13 @@ import { WASocket } from "./lib";
 import { makeParsableObj } from "./handleText";
 import { writeFile } from "fs/promises";
 import { downloadContentFromMessage } from "./lib";
-import keys from "./config.json";
 import { removeBackgroundFromImageFile } from "remove.bg";
 import SauceNAO from "saucenao";
 import { createSticker } from "wa-sticker-formatter";
 import path from "path";
+import dotenv from 'dotenv';
+dotenv.config();
+
 const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
 const ffprobe = require("@ffprobe-installer/ffprobe");
 
@@ -93,7 +95,7 @@ export default async (sock: WASocket, msg: any) => {
 					try {
 						result = await removeBackgroundFromImageFile({
 							path: localFile,
-							apiKey: keys.removeBgAPIKey,
+							apiKey: process.env.removeBgAPIKey,
 							size: "regular",
 							type: "auto",
 							scale: "100%",

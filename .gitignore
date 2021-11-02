@@ -7,3 +7,5 @@ group.json
 *.log
 config.json
 BaileyStuff
+test.js
+.env*
