@@ -44,7 +44,7 @@ const establishConnection = async () => {
 	// start a connection
 	const startSock = () => {
 		const sock = makeWASocket({
-			logger: P({ level: "info" }),
+			logger: P({ level: "silent" }),
 			auth: loadState(),
 			printQRInTerminal: true,
 		});
@@ -67,7 +67,7 @@ const establishConnection = async () => {
 		});
 
 		//sock.ev.on("messages.update", (m) => console.log(m));
-		//sock.ev.on("chats.update", (m) => console.log(m));
+		sock.ev.on("chats.update", (m) => console.log(m));
 		return sock;
 	};
 
