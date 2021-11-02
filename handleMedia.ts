@@ -1,7 +1,6 @@
-import { WASocket } from "./lib";
+import { WASocket, downloadContentFromMessage } from "./lib";
 import { makeParsableObj } from "./handleText";
 import { writeFile } from "fs/promises";
-import { downloadContentFromMessage } from "./lib";
 import { removeBackgroundFromImageFile } from "remove.bg";
 import SauceNAO from "saucenao";
 import { createSticker } from "wa-sticker-formatter";

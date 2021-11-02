@@ -67,7 +67,7 @@ const establishConnection = async () => {
 		});
 
 		//sock.ev.on("messages.update", (m) => console.log(m));
-		sock.ev.on("chats.update", (m) => console.log(m));
+		//sock.ev.on("chats.update", (m) => console.log(m));
 		return sock;
 	};
 
