@@ -126,4 +126,4 @@ class SenderKeyState {
     }
 }
 
-module.exports = SenderKeyState;
+exports = SenderKeyState;

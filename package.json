@@ -10,7 +10,8 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node --inspect -r ts-node/register index.ts"
+		"start": "node --inspect -r ts-node/register index.ts",
+		"build": "tsc --build"
 	},
 	"dependencies": {
 		"@adiwajshing/baileys": "^3.5.2",
