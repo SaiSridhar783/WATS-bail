@@ -43,48 +43,48 @@ export default async function handleGroup(
 		if (nsfw_[msg.key.remoteJid])
 			return makeParsableObj({ text: "NSFW enabled in this group!" });
 		else return makeParsableObj({ text: "NSFW disabled in this group!" });
-	}
+	} else {
+		switch (command) {
+			case "..invite":
+				const code = await sock.groupInviteCode(msg.key.remoteJid);
+				return makeParsableObj({
+					text: `https://chat.whatsapp.com/${code}`,
+				});
 
-	switch (command) {
-		case "..invite":
-			const code = await sock.groupInviteCode(msg.key.remoteJid);
-			return makeParsableObj({
-				text: `https://chat.whatsapp.com/${code}`,
-			});
+			case "..add":
+				await sock.groupParticipantsUpdate(
+					msg.key.remoteJid,
+					args.map((part) => `${part}@s.whatsapp.net`),
+					"add"
+				);
+				return makeParsableObj(null);
 
-		case "..add":
-			await sock.groupParticipantsUpdate(
-				msg.key.remoteJid,
-				args.map((part) => `${part}@s.whatsapp.net`),
-				"add"
-			);
-			return makeParsableObj(null);
+			case "..kick":
+				await sock.groupParticipantsUpdate(
+					msg.key.remoteJid,
+					args.map((part) => `${part}@s.whatsapp.net`),
+					"remove"
+				);
+				return makeParsableObj(null);
 
-		case "..kick":
-			await sock.groupParticipantsUpdate(
-				msg.key.remoteJid,
-				args.map((part) => `${part}@s.whatsapp.net`),
-				"remove"
-			);
-			return makeParsableObj(null);
+			case "..makeadmin":
+				await sock.groupParticipantsUpdate(
+					msg.key.remoteJid,
+					args.map((part) => `${part}@s.whatsapp.net`),
+					"promote"
+				);
+				return makeParsableObj(null);
 
-		case "..makeadmin":
-			await sock.groupParticipantsUpdate(
-				msg.key.remoteJid,
-				args.map((part) => `${part}@s.whatsapp.net`),
-				"promote"
-			);
-			return makeParsableObj(null);
+			case "..unadmin":
+				await sock.groupParticipantsUpdate(
+					msg.key.remoteJid,
+					args.map((part) => `${part}@s.whatsapp.net`),
+					"demote" // replace this parameter with "remove", "demote" or "promote"
+				);
+				return makeParsableObj(null);
 
-		case "..unadmin":
-			await sock.groupParticipantsUpdate(
-				msg.key.remoteJid,
-				args.map((part) => `${part}@s.whatsapp.net`),
-				"demote" // replace this parameter with "remove", "demote" or "promote"
-			);
-			return makeParsableObj(null);
-
-		default:
-			return;
+			default:
+				return null;
+		}
 	}
 }

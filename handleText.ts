@@ -58,14 +58,18 @@ export default async (sock: WASocket, msg: any) => {
 	const args = temp.slice(1);
 
 	const isGroupMsg = msg.key.remoteJid.includes("-");
+	let isGroupYes = groups[msg.key.remoteJid];
+	let isNSFW = nsfw_[msg.key.remoteJid];;
 
 	if (isGroupMsg) {
-		fs.writeFileSync("group.json", JSON.stringify(msg, undefined, 2));
+		//fs.writeFileSync("group.json", JSON.stringify(msg, undefined, 2));
 		const res = await handleGroup(sock, msg, command, args);
-		if (res) return res;
+		isGroupYes = groups[msg.key.remoteJid];
+		isNSFW = nsfw_[msg.key.remoteJid];
+		if (res) {
+			return res;
+		}
 	}
-	const isGroupYes = groups[msg.key.remoteJid] || false;
-	const isNSFW = nsfw_[msg.key.remoteJid] || false;
 
 	if (isGroupMsg && !isGroupYes) {
 		return makeParsableObj(null);
