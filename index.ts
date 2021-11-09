@@ -51,7 +51,7 @@ const establishConnection = async () => {
 		sock.ev.on("messages.upsert", async (m) => {
 			const msg = m.messages[0];
 			if (!msg.key.fromMe && m.type === "notify") {
-				console.log(JSON.stringify(m, undefined, 2));
+				//console.log(JSON.stringify(m, undefined, 2));
 				let { replyObj, optionsObj } = await handleText(sock, msg);
 
 				if (!replyObj) return;
