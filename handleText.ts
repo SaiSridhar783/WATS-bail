@@ -2,7 +2,7 @@ import {
 	AnyMessageContent,
 	MiscMessageGenerationOptions,
 	WASocket,
-} from "./lib";
+} from "@adiwajshing/baileys-md";
 import * as fs from "fs";
 import groups from "./utils/groups.json";
 import nsfw_ from "./utils/NSFW.json";

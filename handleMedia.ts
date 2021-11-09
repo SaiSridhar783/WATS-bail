@@ -1,4 +1,4 @@
-import { WASocket, downloadContentFromMessage } from "./lib";
+import { WASocket, downloadContentFromMessage } from "@adiwajshing/baileys-md";
 import { makeParsableObj } from "./handleText";
 import { writeFile } from "fs/promises";
 import { removeBackgroundFromImageFile } from "remove.bg";

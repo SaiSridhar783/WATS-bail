@@ -9,7 +9,7 @@ import makeWASocket, {
 	BufferJSON,
 	initInMemoryKeyStore,
 	delay,
-} from "./lib";
+} from "@adiwajshing/baileys-md";
 import handleText from "./handleText";
 
 const establishConnection = async () => {
