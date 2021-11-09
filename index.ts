@@ -52,6 +52,12 @@ const establishConnection = async () => {
 			const msg = m.messages[0];
 			if (!msg.key.fromMe && m.type === "notify") {
 				//console.log(JSON.stringify(m, undefined, 2));
+				let word =
+					msg.message.conversation ||
+					msg.message[Object.keys(msg.message)[0]].text ||
+					msg.message[Object.keys(msg.message)[0]].caption ||
+					"Audio Message";
+				console.log(`Message Recieved from ${msg.pushName} - ${word}`);
 				let { replyObj, optionsObj } = await handleText(sock, msg);
 
 				if (!replyObj) return;

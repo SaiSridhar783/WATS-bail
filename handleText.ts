@@ -35,8 +35,6 @@ export const makeParsableObj = (
 };
 
 export default async (sock: WASocket, msg: any) => {
-	fs.writeFileSync("mess.json", JSON.stringify(msg, undefined, 2));
-
 	if (
 		Object.keys(msg.message).includes("imageMessage") ||
 		Object.keys(msg.message).includes("videoMessage") ||
