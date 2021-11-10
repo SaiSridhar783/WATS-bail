@@ -12,8 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "lib": ["es2020", "esnext.array"],
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true
   },
-  "include": ["**/*","media"],
+  "include": ["**/*"],
   "exclude": ["node_modules","test.js","BaileyStuff","dist"]
 }
