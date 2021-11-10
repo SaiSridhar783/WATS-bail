@@ -9,4 +9,4 @@ config.json
 BaileyStuff
 test.js
 .env*
-dist
+build

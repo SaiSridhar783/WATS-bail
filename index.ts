@@ -124,9 +124,11 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "media")));
 app.use(express.static(path.join(__dirname, "utils")));
+app.use(express.static(path.join(__dirname, "static", "venus")));
+app.use(express.static(path.join(__dirname, "static", "venus", "dist")));
 
 app.get("/", (req, res) => {
-	res.send("It's on!");
+    res.sendFile(path.join(__dirname, "static", "venus", "index.html"));
 });
 
 app.get("/group", (req, res) => {
