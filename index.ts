@@ -116,4 +116,26 @@ const establishConnection = async () => {
 	sock.ev.on("auth-state.update", () => saveState());
 };
 
+// For Deployment: Keep Alive
+
+import express from "express";
+import path from "path";
+const app = express();
+
+app.use(express.static(path.join(__dirname, "media")));
+app.use(express.static(path.join(__dirname, "utils")));
+
+app.get("/", (req, res) => {
+	res.send("It's on!");
+});
+
+app.get("/group", (req, res) => {
+	res.json(path.join(__dirname, "groups.json"));
+});
+
+app.listen(process.env.PORT || 5002, function (err) {
+	if (err) console.log(err);
+	console.log("Server listening on PORT", process.env.PORT || 5002);
+});
+
 establishConnection();
