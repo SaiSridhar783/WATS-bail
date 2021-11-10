@@ -128,11 +128,11 @@ app.use(express.static(path.join(__dirname, "static", "venus")));
 app.use(express.static(path.join(__dirname, "static", "venus", "dist")));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "static", "venus", "index.html"));
+	res.sendFile(path.join(__dirname, "static", "venus", "index.html"));
 });
 
 app.get("/group", (req, res) => {
-	res.json(path.join(__dirname, "groups.json"));
+	res.sendFile(path.join(__dirname, "utils", "groups.json"));
 });
 
 app.listen(process.env.PORT || 5002, function (err) {
