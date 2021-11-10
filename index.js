@@ -109,4 +109,23 @@ const establishConnection = async () => {
     // it is imperative you save this data, it affects the signing keys you need to have conversations
     sock.ev.on("auth-state.update", () => saveState());
 };
+// For Deployment: Keep Alive
+const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
+const app = (0, express_1.default)();
+app.use(express_1.default.static(path_1.default.join(__dirname, "media")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "utils")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "static", "venus")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "static", "venus", "dist")));
+app.get("/", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "static", "venus", "index.html"));
+});
+app.get("/group", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "utils", "groups.json"));
+});
+app.listen(process.env.PORT || 5002, function (err) {
+    if (err)
+        console.log(err);
+    console.log("Server listening on PORT", process.env.PORT || 5002);
+});
 establishConnection();
