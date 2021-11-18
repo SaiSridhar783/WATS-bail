@@ -52,6 +52,7 @@ const establishConnection = async () => {
 			const msg = m.messages[0];
 			if (!msg.key.fromMe && m.type === "notify") {
 				//console.log(JSON.stringify(m, undefined, 2));
+				if (!msg.message) return;
 				let word =
 					msg.message.conversation ||
 					msg.message[Object.keys(msg.message)[0]].text ||
