@@ -2,6 +2,7 @@ import {
 	AnyMessageContent,
 	MiscMessageGenerationOptions,
 	WASocket,
+	WA_DEFAULT_EPHEMERAL,
 } from "@adiwajshing/baileys-md";
 import * as fs from "fs";
 import groups from "./utils/groups.json";
@@ -57,7 +58,7 @@ export default async (sock: WASocket, msg: any) => {
 
 	const isGroupMsg = msg.key.remoteJid.includes("-");
 	let isGroupYes = groups[msg.key.remoteJid];
-	let isNSFW = nsfw_[msg.key.remoteJid];;
+	let isNSFW = nsfw_[msg.key.remoteJid];
 
 	if (isGroupMsg) {
 		//fs.writeFileSync("group.json", JSON.stringify(msg, undefined, 2));
@@ -387,6 +388,7 @@ export default async (sock: WASocket, msg: any) => {
 			return makeParsableObj({
 				image: { url: urlAnimen },
 				caption: "Kawaii",
+				viewOnce: true,
 			});
 
 		case "..nsfwgirl":
@@ -399,7 +401,11 @@ export default async (sock: WASocket, msg: any) => {
 					"https://meme-api.herokuapp.com/gimme/nsfw"
 				);
 				const { title, url } = pon.data;
-				return makeParsableObj({ image: { url }, caption: title });
+				return makeParsableObj({
+					image: { url },
+					caption: title,
+					viewOnce: true,
+				});
 			} catch (err) {
 				console.log(err);
 				return makeParsableObj({ text: "Something went wrong..." });
@@ -413,12 +419,15 @@ export default async (sock: WASocket, msg: any) => {
 		case "..ecchi":
 		case "..nsfw":
 			let subr = "";
+			let ops = {};
 			if (command == "..meme") subr = "memes";
 			else if (command == "..wholesome") subr = "wholesomememes";
 			else if (command == "..dank") subr = "IndianDankMemes";
 			else if (command == "..waifu") subr = "awwnime";
-			else if (command == "..ecchi") subr = "ecchi";
-			else if (command == "..r") {
+			else if (command == "..ecchi") {
+				subr = "ecchi";
+				ops = { viewOnce: true };
+			} else if (command == "..r") {
 				const como = convo.slice(4);
 				if (como.length < 2) {
 					return makeParsableObj({ text: "Enter valid sub" });
@@ -439,6 +448,7 @@ export default async (sock: WASocket, msg: any) => {
 				return makeParsableObj({
 					image: { url: media },
 					caption: title,
+					...ops,
 				});
 			} catch (err) {
 				return makeParsableObj({ text: err });

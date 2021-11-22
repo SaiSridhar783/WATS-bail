@@ -3,49 +3,22 @@ import P from "pino";
 import { Boom } from "@hapi/boom";
 import makeWASocket, {
 	WASocket,
-	AuthenticationState,
 	DisconnectReason,
 	AnyMessageContent,
-	BufferJSON,
-	initInMemoryKeyStore,
 	delay,
+	useSingleFileAuthState,
 } from "@adiwajshing/baileys-md";
+const { state, saveState } = useSingleFileAuthState("./auth_info_multi.json");
 import handleText from "./handleText";
 
 const establishConnection = async () => {
 	let sock: WASocket | undefined = undefined;
-	// load authentication state from a file
-	const loadState = () => {
-		let state: AuthenticationState | undefined = undefined;
-		try {
-			const value = JSON.parse(
-				readFileSync("./auth_info_multi.json", { encoding: "utf-8" }),
-				BufferJSON.reviver
-			);
-			state = {
-				creds: value.creds,
-				// stores pre-keys, session & other keys in a JSON object
-				// we deserialize it here
-				keys: initInMemoryKeyStore(value.keys),
-			};
-		} catch {}
-		return state;
-	};
-	// save the authentication state to a file
-	const saveState = (state?: any) => {
-		console.log("saving pre-keys");
-		state = state || sock?.authState;
-		writeFileSync(
-			"./auth_info_multi.json",
-			// BufferJSON replacer utility saves buffers nicely
-			JSON.stringify(state, BufferJSON.replacer, 2)
-		);
-	};
+
 	// start a connection
 	const startSock = () => {
 		const sock = makeWASocket({
 			logger: P({ level: "silent" }),
-			auth: loadState(),
+			auth: state,
 			printQRInTerminal: true,
 		});
 		sock.ev.on("messages.upsert", async (m) => {
@@ -112,9 +85,8 @@ const establishConnection = async () => {
 		}
 		console.log("connection update", update);
 	});
-	// listen for when the auth state is updated
-	// it is imperative you save this data, it affects the signing keys you need to have conversations
-	sock.ev.on("auth-state.update", () => saveState());
+	// listen for when the auth credentials is updated
+	sock.ev.on("creds.update", saveState);
 };
 
 // For Deployment: Keep Alive
@@ -133,6 +105,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/group", (req, res) => {
+	// View the bot enabled groups jid
 	res.sendFile(path.join(__dirname, "utils", "groups.json"));
 });
 

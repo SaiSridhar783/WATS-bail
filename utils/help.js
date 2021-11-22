@@ -71,8 +71,8 @@ exports.nsfwhelp = nsfwhelp();
 
 function info() {
 	return `This bot is made in Node.js / TypeScript
-Source code bot : https://github.com/SaiSridhar783/Bailey-WATS
-Owner Bot : wa.me/917760317149
+Source code bot : https://github.com/SaiSridhar783/WATS-bail
+Bot Owner : wa.me/917760317149
 Author : Akula Sai Sridhar`;
 }
 exports.info = info();

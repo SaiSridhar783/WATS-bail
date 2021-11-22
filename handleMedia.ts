@@ -5,7 +5,7 @@ import { removeBackgroundFromImageFile } from "remove.bg";
 import SauceNAO from "saucenao";
 import { createSticker } from "wa-sticker-formatter";
 import path from "path";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
