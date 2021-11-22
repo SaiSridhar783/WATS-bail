@@ -75,7 +75,7 @@ you've just cloned!!
 |    ✅    |   Change bot status   |  ..bot [enable/disable]  |
 |    ✅    |   Group invite link   |         ..invite         |
 |    ✅    | Add or remove members | ..add/..kick [918564...] |
-|    []    | Make or remove admin  |       ..makeAdmin        |
+|    ❌    | Make or remove admin  |       ..makeAdmin        |
 
 ## Special Thanks to
 
