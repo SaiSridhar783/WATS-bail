@@ -56,6 +56,7 @@ you've just cloned!!
 |    ✅    |         Get lyrics of a song         |    ..lyrics [song name]     |
 |    ✅    |            Text to speech            |     ..tts [lang] [text]     |
 |    ✅    |         Info about this bot          |           ..info            |
+|    ✅    |      Delete quoted bot message       |          ..delete           |
 
 ### For Otakus
 
@@ -66,6 +67,15 @@ you've just cloned!!
 |    ✅    |             Anime wallpaper              |  ..animewall  |
 |    ✅    |            Random Anime Quote            | ..animequote  |
 |    ✅    |        Search through MyAnimeList        | ..mal [title] |
+
+### Group Commands
+
+| Progress |        Feature        |         Command          |
+| :------: | :-------------------: | :----------------------: |
+|    ✅    |   Change bot status   |  ..bot [enable/disable]  |
+|    ✅    |   Group invite link   |         ..invite         |
+|    ✅    | Add or remove members | ..add/..kick [918564...] |
+|    []    | Make or remove admin  |       ..makeAdmin        |
 
 ## Special Thanks to
 
